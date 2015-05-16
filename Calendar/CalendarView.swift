@@ -13,8 +13,7 @@ public class CalendarView: UIView {
 
     // MARK: - Properties
     
-    let numberOfDays = 7
-    var rows:[CalendarRow] = []
+    private var rows:[CalendarRow] = []
     
 // don't use init with coder because otherwiese the canvas preview is not working
 //    required public init(coder aDecoder: NSCoder) {
@@ -27,7 +26,7 @@ public class CalendarView: UIView {
         var previewView:CalendarRow?
         var weekdays = self.weekdays()
         
-        for (var i = 0; i < numberOfDays; i++){
+        for (var i = 0; i < weekdays.count; i++){
             var row:CalendarRow = CalendarRow(index: i, title:weekdays[i])
             self.rows.append(row)
             self.addSubview(row)
@@ -38,7 +37,7 @@ public class CalendarView: UIView {
                 self.setLeadingConstraint(row, toItem: self)
             }
             
-            if i + 1 == numberOfDays{
+            if i + 1 == weekdays.count{
                 self.setTrailingConstraint(row, toItem: self)
             }
             
@@ -49,11 +48,33 @@ public class CalendarView: UIView {
 
     }
     
+    /**
+     Set status for weekday
+    :param: status:CalendarRowStatus, weekday:CalendarWeekday
+    */
+    
+    public func statusForWeekday(status:CalendarRowStatus, weekday:CalendarWeekday){
+        var row:CalendarRow = rows[weekday.rawValue]
+        row.status = status
+    }
+
+    /**
+    Returns CalendarRowStatus for given weekday:CalendarWeekday
+    :param: status:CalendarRowStatus, weekday:CalendarWeekday
+    :returns: CalendarRowStatus
+    */
+    public func statusForWeekday(weekday:CalendarWeekday) -> CalendarRowStatus{
+        var row:CalendarRow = rows[weekday.rawValue]
+        return row.status
+    }
+    
+    // MARK: - Private function
+    
     private func weekdays() -> [String]{
         // get Weekdays name
         let fmt = NSDateFormatter()
         var days:[String] = fmt.shortWeekdaySymbols as! [String]
-        
+        println(days)
         // replace current weekday with today
         fmt.dateFormat = "EE"
         var currentDay = fmt.stringFromDate(NSDate())
