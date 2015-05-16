@@ -19,7 +19,6 @@ internal class StatusImageView: UIImageView {
     private var statusImage:UIImage{
         get{
             var _imageName:String = "missed"
-            println(self.status)
             switch self.status{
                 case .completed:        _imageName = "completed"; break
                 case .completedCurrent: _imageName = "completedCurrent"; break
@@ -41,8 +40,9 @@ internal class StatusImageView: UIImageView {
         self.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.contentMode = UIViewContentMode.Center
         self.status = status // didSet() not called in init
-        self.image = self.statusImage
-        
+        // disable in iphone simulator to avoid crash for Interface Live Preview
+        #if !(TARGET_INTERFACE_BUILDER)
+            self.image = self.statusImage
+        #endif
     }
-    
 }

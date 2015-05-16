@@ -7,15 +7,19 @@
 //
 
 import UIKit
-//import Calendar
+import Calendar
 
 class ViewController: UIViewController {
 
-//    @IBOutlet weak var calendar: CalendarView!
+    @IBOutlet weak var calendar: CalendarView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        self.calendar.statusForWeekday(.completedCurrent, weekday: .Sat)
+        self.calendar.statusForWeekday(.completed, weekday: .Wed)
+        self.calendar.statusForWeekday(.Sat)
+        
     }
 
     override func didReceiveMemoryWarning() {

@@ -29,7 +29,8 @@ internal class CalendarRow: UIView {
         lb.setTranslatesAutoresizingMaskIntoConstraints(false)
         lb.textAlignment = .Center
         lb.textColor = .lightGrayColor()
-        lb.font = UIFont.systemFontOfSize(15)
+        lb.font = UIFont.systemFontOfSize(13)
+        lb.minimumScaleFactor = 0.5
         return lb
         }()
     
